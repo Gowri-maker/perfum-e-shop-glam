@@ -4,12 +4,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Star, Heart, ShoppingCart, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/contexts/CartContext";
 import heroImage from "@/assets/hero-perfume.jpg";
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { addToCart, addToWishlist } = useCart();
 
   const allPerfumes = [
     { id: 1, name: "Ocean Breeze", brand: "Aqua Luxe", cost: "$85", description: "Fresh marine notes with a hint of citrus", rating: 4.8, category: "light", purchases: 245 },
@@ -29,17 +31,23 @@ const ProductDetail = () => {
   const product = allPerfumes.find((p) => p.id === parseInt(productId || ""));
 
   const handleAddToWishlist = () => {
-    toast({
-      title: "Added to Wishlist",
-      description: `${product?.name} has been added to your wishlist.`,
-    });
+    if (product) {
+      addToWishlist(product);
+      toast({
+        title: "Added to Wishlist",
+        description: `${product.name} has been added to your wishlist.`,
+      });
+    }
   };
 
   const handleAddToCart = () => {
-    toast({
-      title: "Added to Cart",
-      description: `${product?.name} has been added to your cart.`,
-    });
+    if (product) {
+      addToCart(product);
+      toast({
+        title: "Added to Cart",
+        description: `${product.name} has been added to your cart.`,
+      });
+    }
   };
 
   if (!product) {
