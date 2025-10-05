@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,17 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      toast({
+        title: "Already Logged In",
+        description: "You are already logged in. Redirecting to home...",
+      });
+      navigate("/");
+    }
+  }, [navigate, toast]);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,6 +64,8 @@ const Login = () => {
 
     // Simulate login (replace with actual authentication)
     setTimeout(() => {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userEmail", email);
       toast({
         title: "Login Successful",
         description: "Welcome to Essence Luxe!",

@@ -160,13 +160,35 @@ const Category = () => {
                 Essence Luxe
               </h1>
             </div>
-            <Button
-              variant="elegant"
-              onClick={() => navigate("/login")}
-              className="font-inter"
-            >
-              Account
-            </Button>
+            <div className="flex items-center gap-6">
+              <nav className="hidden md:flex items-center gap-6">
+                <button
+                  onClick={() => navigate("/about")}
+                  className="text-muted-foreground hover:text-foreground transition-colors font-inter"
+                >
+                  About
+                </button>
+                <button
+                  onClick={() => navigate("/contact")}
+                  className="text-muted-foreground hover:text-foreground transition-colors font-inter"
+                >
+                  Contact
+                </button>
+                <button
+                  onClick={() => navigate("/terms")}
+                  className="text-muted-foreground hover:text-foreground transition-colors font-inter"
+                >
+                  Terms & Conditions
+                </button>
+              </nav>
+              <Button
+                variant="elegant"
+                onClick={() => navigate("/login")}
+                className="font-inter"
+              >
+                Account
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -219,6 +241,7 @@ const Category = () => {
                     <Button
                       variant="outline"
                       size="sm"
+                      onClick={() => navigate(`/product/${perfume.id}`)}
                       className="group-hover:border-primary group-hover:text-primary transition-luxury font-inter"
                     >
                       View Details
